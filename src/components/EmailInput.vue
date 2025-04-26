@@ -1,0 +1,16 @@
+<template>
+  <div class="text-sm flex flex-col gap-[4px]">
+    <label>Электронная почта</label>
+    <input
+      type="email"
+      placeholder="Введите эл. почту"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+      title="Введите корректный email"
+      class="w-98 h-10 border-1 rounded-lg border-gray-300 pt-[10px] pr-[12px] pb-[10px] pl-[12px]"
+    />
+  </div>
+</template>
+
+<script setup>
+// Можно добавить логику валидации при необходимости
+</script>
