@@ -25,6 +25,6 @@ const teamSize = ref('')
 
 const handleSubmit = () => {
   console.log('Форма отправлена')
-  // Логика обработки формы
+  
 }
 </script>
