@@ -14,7 +14,7 @@
         pattern="[0-9]"
         v-model="code[index]"
         @input="handleInput(index, $event)"
-        class="border-gray-300 border-[1px] w-[86px] h-[64px] rounded-[16px] pt-[16px] pr-[8px] pb-[16px] pl-[8px] text-center text-2xl focus:outline-3 focus:outline-offset-1 focus:outline-double"
+        class="border-gray-300 border-[1px] w-[86px] h-[64px] rounded-[16px] pt-[16px] pr-[8px] pb-[16px] pl-[8px] text-center text-2xl focus:outline-offset-2 focus:outline-1 outline-i"
       />
     </div>
   </div>
