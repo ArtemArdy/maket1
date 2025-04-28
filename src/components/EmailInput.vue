@@ -1,6 +1,6 @@
 <template>
   <div class="text-sm flex flex-col gap-[4px]">
-    <label>Электронная почта</label>
+    <label class="text-[#666666] text-[14px]">Электронная почта</label>
     <input
       type="email"
       placeholder="Введите эл. почту"

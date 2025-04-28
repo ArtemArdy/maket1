@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-[4px]">
-    <label for="teamSize" class="text-sm">Размер вашей команды</label>
+    <label for="teamSize" class="text-[#666666] text-[14px]">Размер вашей команды</label>
     <select
       id="teamSize"
       v-model="selectedSize"
