@@ -4,7 +4,7 @@
     <select
       id="teamSize"
       v-model="selectedSize"
-      class="w-98 h-10 border-1 rounded-lg border-gray-300 text-sm pt-[10px] pr-[12px] pb-[10px] pl-[12px] focus:outline-3 focus:outline-offset-1 focus:outline-double"
+      class="w-98 h-10 border-1 rounded-lg border-[#E0E0E0] text-sm pt-[10px] pr-[12px] pb-[10px] pl-[12px] focus:outline-3 focus:outline-offset-1 focus:outline-double"
       :class="{ 'text-gray-400': selectedSize === '' }"
     >
       <option

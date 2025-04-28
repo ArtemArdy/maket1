@@ -1,8 +1,11 @@
 <template>
-  <div class="top-0 flex items-center">
-    <img src="./img/Frame3.png" class="h-225 w-163 hidden md:block" />
-    <div class="flex flex-col w-197 h-225 left-163 p-10 gap-[24px] justify-center ml-[172px]">
-      <img src="./img/TextContainer.png" alt="" class="h-45 w-98 gap-24" />
+  <div class="flex h-screen items-center justify-between">
+    <div class="h-full p-3 min-w-[540px] max-w-[40%] w-full max-lg:hidden">
+      <div class="w-full h-full image rounded-[32px]">
+      </div>
+    </div>
+    <div class="p-3 w-full flex justify-center items-center flex-col gap-[24px]">
+      <handsHi />
       <form @submit.prevent="handleSubmit" class="w-98 h-36 flex flex-col gap-[10px]">
         <EmailInput />
         <TeamSizeSelect v-model="teamSize" />
@@ -12,23 +15,20 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-import EmailInput from './components/EmailInput.vue'
-import TeamSizeSelect from './components/TeamSizeSelect.vue'
-import InvitationCode from './components/InvitationCode.vue'
-import SubmitButton from './components/SubmitButton.vue'
-
-const teamSize = ref('')
-
-const handleSubmit = () => {
-  console.log('Форма отправлена')
+<style>
+.image{
+  background-image: url('img/Frame2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+</style>
+<script setup>
+import EmailInput from './components/EmailInput.vue';
+import TeamSizeSelect from './components/TeamSizeSelect.vue';
+import InvitationCode from './components/InvitationCode.vue';
+import SubmitButton from './components/SubmitButton.vue';
+import handsHi from './components/handsHi.vue';
+
 </script>
 
 
-
-<style>
- </style>
