@@ -4,12 +4,42 @@
     <input
       id="email"
       type="mail"
+      v-model="email"
       placeholder="Введите эл. почту"
-      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+      @blur="validEmail"
       title="Введите корректный email"
-      class=" h-[40px] border-1 rounded-[12px] border-[#E0E0E0] pt-[10px] pr-[16px] pb-[10px] pl-[16px] focus:border-[#000000] focus:outline-[#D6D6D6] focus:outline-offset-4 "
+      :class= "[ 'h-[40px] border-1 rounded-[12px] pt-[10px] pr-[16px] pb-[10px] pl-[16px] ',
+      emailError ? 'border-[#C20000] focus:border-[#C20000]' : 'border-[#E0E0E0] focus:border-[#000000] focus:outline-[#D6D6D6] focus:outline-offset-4'
+      ]"
+
     />
+    <p v-if="emailError" class="text-[14px] text-[#C20000]">{{ emailError }}</p>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, watch } from 'vue'
+
+const props = defineProps({
+  modelValue: String,
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const email = ref(props.modelValue || '')
+const emailError = ref('')
+
+watch(email, (newVal) => {
+  emit('update:modelValue', newVal)
+})
+
+const validEmail = () => {
+  const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!email.value || !reg.test(email.value)) {
+    emailError.value = 'Недопустимый формат почты'
+  } else {
+    emailError.value = ''
+  }
+}
+
+</script>

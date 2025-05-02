@@ -14,20 +14,29 @@
         pattern="[0-9]"
         v-model="code[index]"
         @input="handleInput(index, $event)"
-        class="border-[#E0E0E0] border-[1px] w-[86px] h-[64px] rounded-[16px] pt-[16px] pr-[8px] pb-[16px] pl-[8px] text-center text-2xl  focus:border-[#000000] focus:outline-[#D6D6D6] focus:outline-offset-4 "
+        class="border-[#E0E0E0] border-[1px] w-[86px] h-[64px] rounded-[16px] pt-[16px] pr-[8px] pb-[16px] pl-[8px] text-center text-2xl focus:border-[#000000] focus:outline-[#D6D6D6] focus:outline-offset-4"
       />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+const props = defineProps({
+  modelValue: { String, default: '' },
+})
+const emit = defineEmits(['update:modelValue'])
 
-const code = ref(['', '', '', ''])
+const code = ref(props.modelValue.split('') || ['', '', '', ''])
+
 
 const handleInput = (index, event) => {
   if (event.target.value && index < 3) {
     document.querySelectorAll('input[type="text"]')[index + 1].focus()
   }
 }
+watch(code, (newVal) => {
+  emit('update:modelValue', newVal.join(''))
+})
+
 </script>

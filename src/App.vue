@@ -7,13 +7,13 @@
       <div class="p-3 flex justify-center items-center flex-col gap-[24px] max-w-[440px]">
         <WelcomeBlock />
         <form @submit.prevent="handleSubmit" class="flex flex-col gap-[16px]">
-          <EmailInput />
+          <EmailInput v-model="email" />
           <TeamSizeSelect v-model="teamSize" />
           <div class="mt-[8px]">
-            <InvitationCode />
+            <InvitationCode v-model="code" />
           </div>
           <div class="mt-[8px] w-full">
-            <SubmitButton />
+            <SubmitButton :active="isFormComplete" />
           </div>
         </form>
       </div>
@@ -28,9 +28,17 @@
 }
 </style>
 <script setup>
+import { ref, computed } from 'vue'
 import EmailInput from './components/EmailInput.vue'
 import TeamSizeSelect from './components/TeamSizeSelect.vue'
 import InvitationCode from './components/InvitationCode.vue'
 import SubmitButton from './components/SubmitButton.vue'
 import WelcomeBlock from './components/WelcomeBlock.vue'
+const email = ref('')
+const code = ref('')
+const teamSize = ref('')
+const isFormComplete = computed(() => {
+  return email.value !== '' &&  teamSize.value !== ''
+})
+
 </script>

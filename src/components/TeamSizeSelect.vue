@@ -5,7 +5,7 @@
       id="teamSize"
       v-model="selectedSize"
       class="h-[40px] border-1 rounded-[12px] border-[#E0E0E0] text-[14px] pt-[10px] pr-[12px] pb-[10px] pl-[12px] focus:border-[#000000] focus:outline-[#D6D6D6] focus:outline-offset-4"
-      :class="{ 'text-gray-400': selectedSize === '' }"
+      :class="{ 'text-[#666666]': selectedSize === '' }"
     >
       <option
         v-for="option in options"
