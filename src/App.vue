@@ -1,14 +1,20 @@
 <template>
-  <div class="flex h-screen items-center w-full p-3 gap-[12px]">
+  <div class="block lg:h-[64px] lg:hidden overflow-hidden">
+    <div class="flex items-center pl-[20px] pt-[16px]">
+      <img src="/src/img/Frame10.png" alt="" />
+    </div>
+  </div>
+  <div class="flex h-screen max-lg:h-full lg:items-center w-full p-3 gap-[12px]">
     <div class="h-full min-w-[540px] max-w-[40%] w-full max-lg:hidden">
       <div class="w-full h-full image rounded-[32px]"></div>
     </div>
+
     <div class="w-full flex justify-center items-center">
       <div class="p-3 flex justify-center items-center flex-col gap-[24px] max-w-[440px]">
         <WelcomeBlock />
         <form @submit.prevent="handleSubmit" class="flex flex-col gap-[16px]">
-          <EmailInput v-model="email" />
-          <TeamSizeSelect v-model="teamSize" />
+          <EmailInput v-model="email" v-model:formValidation="formValidation" />
+          <TeamSizeSelect v-model="selectOption" />
           <div class="mt-[8px]">
             <InvitationCode v-model="code" />
           </div>
@@ -36,9 +42,15 @@ import SubmitButton from './components/SubmitButton.vue'
 import WelcomeBlock from './components/WelcomeBlock.vue'
 const email = ref('')
 const code = ref('')
-const teamSize = ref('')
-const isFormComplete = computed(() => {
-  return email.value !== '' &&  teamSize.value !== ''
+const selectOption = ref('')
+const formValidation = ref({
+  email: {
+    error: '',
+    isValid: true,
+  },
 })
 
+const isFormComplete = computed(() => {
+  return email.value !== '' && selectOption.value !== '' && formValidation.value.email.isValid
+})
 </script>
