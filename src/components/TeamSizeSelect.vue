@@ -1,44 +1,83 @@
 <template>
-  <div class="flex flex-col gap-[4px]">
-    <label for="teamSize" class="text-[#666666] text-[14px]">Размер вашей команды</label>
-     <div class="">
-    <div @click="toggleMenu" class=" flex justify-between text-[#999999] h-[40px] w-full border-1 rounded-[12px] border-[#E0E0E0]  text-[14px] pt-[10px] pr-[12px] pb-[10px] pl-[12px] focus:border-[#000000] focus:outline-[#D6D6D6] focus:outline-offset-4">
-      <span>{{ selectedOption || 'Выберите количество участников' }}</span>
+  <div class="flex flex-col gap-1">
+    <label for="teamSize" class="text-gray-600 text-sm">
+      Размер вашей команды
+    </label>
 
-    <svg xmlns="http://www.w3.org/2000/svg"
-       class="h-4 w-4 text-[#999999]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M19 9l-7 7-7-7" />
-  </svg>
-    </div>
-<div class="relative">
-    <div v-if="isOpen" class=" absolute w-full  bg-white border-[#E0E0E0] border-1 rounded-[12px] z-10">
-      <ul>
-        <li class="py-1 px-2 hover:bg-gray-100 cursor-pointer" @click="selectOption('1 человек')">1 человек</li>
-        <li class="py-1 px-2 hover:bg-gray-100 cursor-pointer" @click="selectOption('2-3 человека')">2-3 человека</li>
-        <li class="py-1 px-2 hover:bg-gray-100 cursor-pointer" @click="selectOption('4-8 человек')">4-8 человек</li>
+    <div class="relative" ref="dropdownRef">
+      <button
+        id="teamSize"
+        type="button"
+        class="flex justify-between items-center w-full h-10 px-3 py-2.5 text-sm text-gray-500 border border-gray-200 rounded-xl hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200"
+        @click="toggleMenu"
+        :aria-expanded="isOpen"
+        :aria-controls="'teamSizeOptions'"
+      >
+        <span>{{ model || 'Выберите количество участников' }}</span>
+        <img
+          :src="ChevronDown"
+          alt=""
+          class="h-4 w-4"
+          :class="{ 'transform rotate-180': isOpen }"
+        />
+      </button>
+
+      <ul
+        v-if="isOpen"
+        id="teamSizeOptions"
+        class="absolute w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-10"
+      >
+        <li
+          v-for="option in options"
+          :key="option"
+          class="px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+          @click="selectOption(option)"
+        >
+          {{ option }}
+        </li>
       </ul>
     </div>
-    </div>
-  </div>
-
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, onMounted, onUnmounted, useTemplateRef } from 'vue'
+import ChevronDown from '../assets/chevron-down.svg'
+
+const options = [
+  '1 человек',
+  '2-3 человека',
+  '4-8 человек'
+]
+
 const model = defineModel()
 const isOpen = ref(false)
-const selectedOption = ref(model.value || '')
+const dropdownRef = useTemplateRef('dropdownRef')
+
 const toggleMenu = () => {
   isOpen.value = !isOpen.value
 }
+
 const selectOption = (option) => {
-  selectedOption.value = option
   model.value = option
   isOpen.value = false
 }
-watch(model, (newVal) => {
-  selectedOption.value = newVal
+
+// Close dropdown when clicking outside
+// На боевых проектах вручную никто это не делает, обычно юзаются готовые наборы комопзаблов типа vueUse (на него ссылается офф дока)
+// Но тут вручную
+
+const handleClickOutside = (event) => {
+  if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+    isOpen.value = false
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
 })
 </script>
